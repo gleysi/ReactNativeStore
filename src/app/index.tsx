@@ -1,4 +1,5 @@
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
+import ProductItem from '../components/ProductItem/ProductItem';
 import { useProducts } from '../hooks/useProducts';
 
 export default function HomeScreen() {
@@ -10,11 +11,25 @@ export default function HomeScreen() {
   return (
     <View>
       <FlatList
+        numColumns={2}
+        contentContainerStyle={style.listContent}
+        columnWrapperStyle={style.row}
         data={data}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <Text>{item.title}</Text>}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => <ProductItem item={item} />}
       />
     </View>
   );
 }
 
+const style = StyleSheet.create({
+  listContent: {
+    paddingHorizontal: 8,
+    paddingVertical: 8,
+  },
+  row: {
+    justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+
+});
