@@ -3,3 +3,8 @@ export interface ProductType {
   title: string,
   images: Array<string>
 };
+
+export interface ProductListProps {
+  data: ProductType[],
+  searchText?: string;
+};

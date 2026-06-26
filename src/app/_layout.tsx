@@ -1,4 +1,5 @@
 import SearchModal from '@/components/SearchModal/SearchModal';
+import { SearchProvider } from '@/context/SearchContext';
 import { Ionicons } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
 import { useState } from 'react';
@@ -8,7 +9,7 @@ export default function RootLayout() {
   const [searchVisible, setSearchVisible] = useState(false);
 
   return (
-    <>
+    <SearchProvider>
       <Stack
         screenOptions={{
           headerTitle: '',
@@ -41,6 +42,6 @@ export default function RootLayout() {
         visible={searchVisible}
         onClose={() => setSearchVisible(false)}
       />
-    </>
+    </SearchProvider>
   );
 }

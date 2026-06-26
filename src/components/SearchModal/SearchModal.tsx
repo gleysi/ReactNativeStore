@@ -1,5 +1,5 @@
+import { useSearch } from '@/context/SearchContext';
 import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
 import { useState } from 'react';
 import {
     FlatList,
@@ -9,7 +9,7 @@ import {
     Pressable,
     Text,
     TextInput,
-    View
+    View,
 } from 'react-native';
 import styles from './styles';
 
@@ -27,21 +27,17 @@ const recentSearches = [
 ];
 
 export default function SearchModal({ visible, onClose }: SearchModalProps) {
-  const [searchText, setSearchText] = useState('');
+  const [localSearchText, setLocalSearchText] = useState('');
+  const { setSearchText } = useSearch();
 
   const handleSearch = (value?: string) => {
-    const query = value ?? searchText;
+    const query = value ?? localSearchText;
 
     if (!query.trim()) return;
 
+    setSearchText(query.trim());
+    setLocalSearchText('');
     onClose();
-
-    router.push({
-      pathname: '/search' as any,
-      params: { query },
-    });
-
-    setSearchText('');
   };
 
   return (
@@ -65,8 +61,8 @@ export default function SearchModal({ visible, onClose }: SearchModalProps) {
             <Ionicons name="search" size={20} color="#777" />
 
             <TextInput
-              value={searchText}
-              onChangeText={setSearchText}
+              value={localSearchText}
+              onChangeText={setLocalSearchText}
               placeholder="Search products"
               placeholderTextColor="#777"
               style={styles.input}
@@ -75,8 +71,8 @@ export default function SearchModal({ visible, onClose }: SearchModalProps) {
               onSubmitEditing={() => handleSearch()}
             />
 
-            {searchText.length > 0 && (
-              <Pressable onPress={() => setSearchText('')}>
+            {localSearchText.length > 0 && (
+              <Pressable onPress={() => setLocalSearchText('')}>
                 <Ionicons name="close-circle" size={20} color="#777" />
               </Pressable>
             )}
@@ -87,7 +83,7 @@ export default function SearchModal({ visible, onClose }: SearchModalProps) {
           </Pressable>
         </View>
 
-        {/* Content */}
+        {/* Recent Searches Content */}
         <View style={styles.content}>
           <Text style={styles.sectionTitle}>Recent searches</Text>
 
@@ -105,17 +101,18 @@ export default function SearchModal({ visible, onClose }: SearchModalProps) {
             )}
           />
 
-          {searchText.length > 0 && (
+          {/* Bottom Search suggestion, typing... */}
+          {localSearchText.length > 0 && (
             <View style={styles.liveSuggestion}>
               <Text style={styles.sectionTitle}>Search suggestion</Text>
 
               <Pressable
                 style={styles.suggestionItem}
-                onPress={() => handleSearch(searchText)}
+                onPress={() => handleSearch(localSearchText)}
               >
                 <Ionicons name="search-outline" size={20} color="#555" />
                 <Text style={styles.suggestionText}>
-                  Search for "{searchText}"
+                  Search for "{localSearchText}"
                 </Text>
               </Pressable>
             </View>

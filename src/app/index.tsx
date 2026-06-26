@@ -1,8 +1,10 @@
-import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
-import ProductItem from '../components/ProductItem/ProductItem';
+import ProductList from '@/components/ProductList/ProductList';
+import { useSearch } from '@/context/SearchContext';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { useProducts } from '../hooks/useProducts';
 
 export default function HomeScreen() {
+  const { searchText } = useSearch();
   const { data, loading, error } = useProducts();
 
   if (loading) return <ActivityIndicator size="large" />;
@@ -10,15 +12,8 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        numColumns={2}
-        contentContainerStyle={styles.listContent}
-        columnWrapperStyle={styles.row}
-        data={data}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <ProductItem item={item} />}
-        showsVerticalScrollIndicator={true}
-      />
+      { searchText ? <Text>Results for : {searchText} </Text>: null }
+      <ProductList data={data} searchText='searchText'/>
     </View>
   );
 }
@@ -26,14 +21,5 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  listContent: {
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-  },
-  row: {
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
-
+  }
 });
