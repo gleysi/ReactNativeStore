@@ -9,20 +9,24 @@ export default function HomeScreen() {
   if (error) return <Text>{error}</Text>;
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         numColumns={2}
-        contentContainerStyle={style.listContent}
-        columnWrapperStyle={style.row}
+        contentContainerStyle={styles.listContent}
+        columnWrapperStyle={styles.row}
         data={data}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <ProductItem item={item} />}
+        showsVerticalScrollIndicator={true}
       />
     </View>
   );
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   listContent: {
     paddingHorizontal: 8,
     paddingVertical: 8,

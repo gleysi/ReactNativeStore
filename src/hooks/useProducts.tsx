@@ -10,7 +10,7 @@ export const useProducts = () => {
     const loadData = async () => {
       try {
         const products = await getProducts();
-        console.log(products);
+        //console.log(products);
         setData(products);
       } catch (err) {
         setError('Error al cargar los usuarios');
