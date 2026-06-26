@@ -1,12 +1,46 @@
-import { FlatList, StyleSheet } from 'react-native';
-import { ProductListProps } from '../../types/products.types';
+import { useSearch } from '@/context/SearchContext';
+import { useProducts } from '@/hooks/useProducts';
+import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import ProductItem from '../ProductItem/ProductItem';
+import styles from './styles';
 
-export default function ({ data, searchText = '' }: ProductListProps) {
-  const normalizedSearch = searchText.trim().toLocaleLowerCase();
+export default function ProductList() {
+  const { searchText } = useSearch();
+  const { data, loading, error } = useProducts();
+
+  const normalizedSearch = searchText.trim().toLowerCase();
   const filteredData = normalizedSearch
     ? data.filter((product) => product.title.toLowerCase().includes(normalizedSearch))
     : data;
+
+  if (loading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.errorText}>{error}</Text>
+      </View>
+    );
+  }
+
+  
+  if (filteredData.length === 0) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.emptyTitle}>No products found</Text>
+        <Text style={styles.emptyText}>
+          Try searching with another keyword.
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <FlatList
       numColumns={2}
@@ -17,16 +51,5 @@ export default function ({ data, searchText = '' }: ProductListProps) {
       renderItem={({ item }) => <ProductItem item={item} />}
       showsVerticalScrollIndicator={true}
     />
-)};
-
-const styles = StyleSheet.create({
-  listContent: {
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-  },
-  row: {
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
-
-});
+  )
+};

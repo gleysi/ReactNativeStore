@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Pressable, Text, View } from 'react-native';
 import styles from './styles';
 
-export default function SearchresultsHeader() {
+export default function SearchResultsHeader() {
   const { searchText, setSearchText } = useSearch();
   return (
       searchText ? (
