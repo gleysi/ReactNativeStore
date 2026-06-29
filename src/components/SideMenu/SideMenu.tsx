@@ -1,3 +1,4 @@
+import useCategories from '@/hooks/useCategories';
 import { Ionicons } from '@expo/vector-icons';
 import {
   Modal,
@@ -13,6 +14,8 @@ type SideMenuProps = {
 };
 
 export default function SideMenu({ visible, onClose }: SideMenuProps) {
+  const { categories, loading, error } = useCategories();
+
   return (
     <Modal
       visible={visible}
@@ -23,6 +26,8 @@ export default function SideMenu({ visible, onClose }: SideMenuProps) {
       <View style={styles.overlay}>
         {/* Left menu */}
         <View style={styles.menuContainer}>
+
+          { /* Categories Header */}
           <View style={styles.header}>
             <Text style={styles.title}>Categories</Text>
 
@@ -31,10 +36,22 @@ export default function SideMenu({ visible, onClose }: SideMenuProps) {
             </Pressable>
           </View>
 
-          <Pressable style={styles.menuItem}>
-            <Text style={styles.menuText}>Home</Text>
-          </Pressable>
-
+          {
+            /* Load Categories */
+            loading ? (
+              <Text style={styles.menuText}>Loading...</Text>
+            ) : error ? (
+              <Text style={styles.menuText}>Error loading categories</Text>
+            ) : (
+              categories.map((category) => {
+                return (
+                  <Pressable key={category.id} style={styles.menuItem}>
+                    <Text style={styles.menuText}>{category.name}</Text>
+                  </Pressable>
+                );
+              })
+            )
+          }
         </View>
 
         {/* Transparent clickable area to close */}
