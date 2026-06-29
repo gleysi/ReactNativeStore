@@ -1,4 +1,5 @@
 import SearchModal from '@/components/SearchModal/SearchModal';
+import SideMenu from '@/components/SideMenu/SideMenu';
 import { SearchProvider } from '@/context/SearchContext';
 import { Ionicons } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
@@ -7,6 +8,7 @@ import { Pressable } from 'react-native';
 
 export default function RootLayout() {
   const [searchVisible, setSearchVisible] = useState(false);
+  const [sideMenuVisible, setsideMenuVisible] = useState(false);
 
   return (
     <SearchProvider>
@@ -19,7 +21,7 @@ export default function RootLayout() {
           },
           headerLeft: () => (
             <Pressable
-              onPress={() => console.log('Menu pressed')}
+              onPress={() => setsideMenuVisible(true)}
               style={{ marginLeft: 16 }}
             >
               <Ionicons name="menu" size={28} color="#222" />
@@ -41,6 +43,10 @@ export default function RootLayout() {
       <SearchModal
         visible={searchVisible}
         onClose={() => setSearchVisible(false)}
+      />
+      <SideMenu
+        visible={sideMenuVisible}
+        onClose={() => setsideMenuVisible(false)}
       />
     </SearchProvider>
   );
