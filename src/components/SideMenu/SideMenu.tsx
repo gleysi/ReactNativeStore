@@ -16,10 +16,11 @@ type SideMenuProps = {
 
 export default function SideMenu({ visible, onClose }: SideMenuProps) {
   const { categories, loading, error } = useCategories();
-  const { setSelectedCategoryId, setSearchText } = useSearch();
+  const { setSelectedCategoryId, setSearchText, setCategoryName } = useSearch();
 
-  const handleProducts = (categoryId: number) => {
+  const handleProducts = (categoryId: number, categoryName: string) => {
     setSelectedCategoryId(categoryId);
+    setCategoryName(categoryName);
     setSearchText('');
     onClose();
   }
@@ -53,7 +54,7 @@ export default function SideMenu({ visible, onClose }: SideMenuProps) {
             ) : (
               categories.map((category) => {
                 return (
-                  <Pressable key={category.id} style={styles.menuItem} onPress={() => handleProducts(category.id)}>
+                  <Pressable key={category.id} style={styles.menuItem} onPress={() => handleProducts(category.id, category.name)}>
                     <Text style={styles.menuText}>{category.name}</Text>
                   </Pressable>
                 );
