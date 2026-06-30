@@ -5,8 +5,8 @@ import ProductItem from '../ProductItem/ProductItem';
 import styles from './styles';
 
 export default function ProductList() {
-  const { searchText } = useSearch();
-  const { data, loading, error } = useProducts();
+  const { searchText, selectedCategoryId } = useSearch();
+  const { data, loading, error } = useProducts(selectedCategoryId);
 
   const normalizedSearch = searchText.trim().toLowerCase();
   const filteredData = normalizedSearch

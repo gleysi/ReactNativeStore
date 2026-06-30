@@ -3,15 +3,18 @@ import { createContext, ReactNode, useContext, useState } from 'react';
 type SearchContextType = {
   searchText: string;
   setSearchText: (value: string) => void;
+  selectedCategoryId: number | null;
+  setSelectedCategoryId: (value: number | null) => void;
 };
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
 
 export function SearchProvider({ children }: { children: ReactNode }) {
   const [searchText, setSearchText] = useState('');
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
 
   return (
-    <SearchContext.Provider value={{ searchText, setSearchText }}>
+    <SearchContext.Provider value={{ searchText, setSearchText, selectedCategoryId, setSelectedCategoryId }}>
       {children}
     </SearchContext.Provider>
   );

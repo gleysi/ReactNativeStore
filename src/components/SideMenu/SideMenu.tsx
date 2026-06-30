@@ -1,3 +1,4 @@
+import { useSearch } from '@/context/SearchContext';
 import useCategories from '@/hooks/useCategories';
 import { Ionicons } from '@expo/vector-icons';
 import {
@@ -15,6 +16,13 @@ type SideMenuProps = {
 
 export default function SideMenu({ visible, onClose }: SideMenuProps) {
   const { categories, loading, error } = useCategories();
+  const { setSelectedCategoryId, setSearchText } = useSearch();
+
+  const handleProducts = (categoryId: number) => {
+    setSelectedCategoryId(categoryId);
+    setSearchText('');
+    onClose();
+  }
 
   return (
     <Modal
@@ -45,7 +53,7 @@ export default function SideMenu({ visible, onClose }: SideMenuProps) {
             ) : (
               categories.map((category) => {
                 return (
-                  <Pressable key={category.id} style={styles.menuItem}>
+                  <Pressable key={category.id} style={styles.menuItem} onPress={() => handleProducts(category.id)}>
                     <Text style={styles.menuText}>{category.name}</Text>
                   </Pressable>
                 );

@@ -4,18 +4,27 @@ import { Pressable, Text, View } from 'react-native';
 import styles from './styles';
 
 export default function SearchResultsHeader() {
-  const { searchText, setSearchText } = useSearch();
+  const { searchText, setSearchText, selectedCategoryId, setSelectedCategoryId } = useSearch();
+
+  if (!searchText && !selectedCategoryId) {
+    return;
+  }
+
+  function handleCLose() {
+    setSearchText('');
+    setSelectedCategoryId(null);
+  }
+
   return (
-      searchText ? (
-        <View style={styles.searchHeader}>
-          <Text style={styles.searchText}>
-            Results for: "{searchText}"
-          </Text>
-  
-          <Pressable onPress={() => setSearchText('')}>
-            <Ionicons name="close" size={16} color="#555" />
-          </Pressable>
-        </View>
-      ) : null
+    <View style={styles.searchHeader}>
+
+      <Text style={styles.searchText}>
+        { searchText ? `Results for: ${searchText}` : `Category: ${selectedCategoryId}` }
+      </Text>
+
+      <Pressable onPress={handleCLose}>
+        <Ionicons name="close" size={16} color="#555" />
+      </Pressable>
+    </View>
   )
 }

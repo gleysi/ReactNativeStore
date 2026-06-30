@@ -2,14 +2,14 @@ import { useSearch } from '@/context/SearchContext';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import {
-    FlatList,
-    KeyboardAvoidingView,
-    Modal,
-    Platform,
-    Pressable,
-    Text,
-    TextInput,
-    View,
+  FlatList,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 import styles from './styles';
 
@@ -28,7 +28,7 @@ const recentSearches = [
 
 export default function SearchModal({ visible, onClose }: SearchModalProps) {
   const [localSearchText, setLocalSearchText] = useState('');
-  const { setSearchText } = useSearch();
+  const { setSearchText, setSelectedCategoryId } = useSearch();
 
   const handleSearch = (value?: string) => {
     const query = value ?? localSearchText;
@@ -36,6 +36,7 @@ export default function SearchModal({ visible, onClose }: SearchModalProps) {
     if (!query.trim()) return;
 
     setSearchText(query.trim());
+    setSelectedCategoryId(null);
     setLocalSearchText('');
     onClose();
   };
