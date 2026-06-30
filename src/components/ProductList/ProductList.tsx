@@ -47,8 +47,8 @@ export default function ProductList() {
       contentContainerStyle={styles.listContent}
       columnWrapperStyle={styles.row}
       data={filteredData}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => <ProductItem item={item} />}
+      keyExtractor={(product) => product.id.toString()}
+      renderItem={({ item }) => <ProductItem product={item} />}
       showsVerticalScrollIndicator={true}
     />
   )
