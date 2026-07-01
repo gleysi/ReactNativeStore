@@ -1,22 +1,26 @@
 import { useEffect, useState } from 'react';
 import { getProducts, getProductsByCategoryId } from '../services/productsService';
 
-export const useProducts = (categoryId?: number | null) => {
+const globalProductsCache: Record<string | number, any[]> = {};
 
-  const [cache, setCache] = useState<Record<string | number, any[]>>({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export const useProducts = (categoryId?: number | null) => {
   const activeCategoryId = categoryId || 'all';
+  const [data, setData] = useState<any[]>(globalProductsCache[activeCategoryId] || []);
+  const [loading, setLoading] = useState(!globalProductsCache[activeCategoryId]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadData = async () => {
 
-      // Check if we already have data for this category in our cache
-      if (cache[activeCategoryId]) {
+      if (globalProductsCache[activeCategoryId]) {
+        setData(globalProductsCache[activeCategoryId]);
+        setLoading(false);
         return; 
       }
 
       setLoading(true);
+      setError(null);
+
       try {
         let products;
         if (activeCategoryId && activeCategoryId !== 'all') {
@@ -25,11 +29,8 @@ export const useProducts = (categoryId?: number | null) => {
           products = await getProducts();
         }
 
-        // 2. Save the new products into the cache under the specific category key
-        setCache((prevCache) => ({
-          ...prevCache,
-          [activeCategoryId]: products,
-        }));
+        globalProductsCache[activeCategoryId] = products;
+        setData(products);
       
       } catch (err) {
         setError('There is an issue when loading the products');
@@ -38,7 +39,7 @@ export const useProducts = (categoryId?: number | null) => {
       }
     };
     loadData();
-  }, [categoryId]);
+  }, [activeCategoryId]);
 
-  return { data: cache[activeCategoryId] || [], loading, error };
+  return { data, loading, error };
 };
