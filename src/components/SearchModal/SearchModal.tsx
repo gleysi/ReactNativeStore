@@ -1,5 +1,6 @@
 import { useSearch } from '@/context/SearchContext';
 import { Ionicons } from '@expo/vector-icons';
+import { usePathname, useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
   FlatList,
@@ -27,6 +28,8 @@ const recentSearches = [
 ];
 
 export default function SearchModal({ visible, onClose }: SearchModalProps) {
+  const router = useRouter();
+  const currentPathname = usePathname();
   const [localSearchText, setLocalSearchText] = useState('');
   const { setSearchText, setSelectedCategoryId } = useSearch();
 
@@ -39,6 +42,9 @@ export default function SearchModal({ visible, onClose }: SearchModalProps) {
     setSelectedCategoryId(null);
     setLocalSearchText('');
     onClose();
+     if (currentPathname !== '/') {
+      router.dismissAll();
+    }
   };
 
   return (
