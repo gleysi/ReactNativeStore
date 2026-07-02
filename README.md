@@ -54,3 +54,158 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+# SoniStore - Expo React Native App
+
+SoniStore is a mobile e-commerce app built with **Expo**, **React Native**, and **Expo Router**.  
+The app displays products, categories, product details, search functionality, and a side menu using a clean route-based structure.
+
+---
+
+## Tech Stack
+
+- **React Native**: Framework used to build native mobile apps using React.
+- **Expo**: Tooling/platform on top of React Native that simplifies development, testing, and deployment.
+- **Expo Router**: File-based routing system for Expo apps.
+- **TypeScript**: Used to add type safety.
+- **React Context**: Used to share global state such as search text across screens and components.
+
+Expo Router is a file-based router for React Native and web apps. Every file added inside the `app` directory can automatically become a navigation route. This makes routing easier to understand and maintain.  
+Reference: Expo Router documentation.
+
+---
+
+## Project Structure
+
+```txt
+src/
+│
+├── app/
+│   ├── _layout.tsx
+│   ├── index.tsx
+│   │
+│   ├── category/
+│   │   └── [id]/
+│   │       └── [slug].tsx
+│   │
+│   └── product/
+│       └── [id].tsx
+│
+├── components/
+│   ├── ProductList/
+│   │   └── ProductList.tsx
+│   │
+│   ├── ProductItem/
+│   │   └── ProductItem.tsx
+│   │
+│   ├── SearchModal/
+│   │   └── SearchModal.tsx
+│   │
+│   ├── SearchResultsHeader/
+│   │   └── SearchResultsHeader.tsx
+│   │
+│   └── SideMenu/
+│       └── SideMenu.tsx
+│
+├── context/
+│   └── SearchContext.tsx
+│
+├── hooks/
+│   └── useCategories.tsx
+│   └── useProducts.tsx
+│
+├── services/
+│   └── categoryService.tsx
+│   └── productsService.tsx
+│
+└── types/
+    └── products.types.tsx
+```
+## React Native vs Expo Go
+
+This project was built using **Expo** on top of **React Native**.
+
+### What is React Native?
+
+React Native is a framework created by Meta that allows developers to build native Android and iOS applications using JavaScript/TypeScript and React.
+
+#### Advantages
+
+- Full access to native Android and iOS code
+- Ability to integrate any native SDK or library
+- Greater flexibility for complex applications
+- Maximum customization and control
+
+#### Disadvantages
+
+- More complex setup and configuration
+- Requires knowledge of Android Studio and Xcode
+- More maintenance of native dependencies
+
+---
+
+### What is Expo Go?
+
+Expo Go is a mobile application that allows developers to run Expo projects instantly on a physical device by scanning a QR code.
+
+It provides a preconfigured development environment with many commonly used native modules already included.
+
+#### Advantages
+
+- Fast project setup
+- No native Android or iOS configuration required
+- Instant testing on physical devices via QR code
+- Excellent developer experience with Fast Refresh
+- Includes many APIs out of the box (Camera, Notifications, Location, File System, etc.)
+
+#### Disadvantages
+
+- Limited to the native modules included in Expo Go
+- Some third-party native libraries are not supported
+- Cannot directly modify native Android/iOS code while using Expo Go
+
+---
+
+### When to Use Each One
+
+#### Use Expo Go when:
+
+- Learning React Native
+- Building prototypes or MVPs
+- Developing applications that use standard Expo SDK features
+- Prioritizing development speed and simplicity
+
+#### Use React Native (or Expo Development Builds) when:
+
+- Native customizations are required
+- Third-party SDKs need native integration
+- The project requires access to Android or iOS native code
+- Specialized hardware or platform-specific features are needed
+
+---
+
+### Why Expo Was Chosen for This Project
+
+Expo was selected because it provides:
+
+- Faster development and testing
+- Simplified project configuration
+- Built-in routing through Expo Router
+- Cross-platform support (Android, iOS, and Web)
+- Easy deployment and maintenance
+
+For the requirements of this product catalog application (product listing, categories, search, navigation, API integration, and responsive UI), Expo provides all the necessary functionality while significantly reducing development complexity.
+
+---
+
+### Relationship Between React Native and Expo
+
+```txt
+React Native
+└── Expo
+    └── Expo Go
+```
+
+React Native is the framework, while Expo and Expo Go are tools built on top of React Native to simplify development and improve the developer experience.
+
+![Watch the Video](https://drive.google.com/file/d/1NUBaNsMY3gMEZuPcQ3fO98wI7lKVuSHN/view?usp=sharing)
