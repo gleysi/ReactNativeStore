@@ -2,13 +2,14 @@ import SearchModal from '@/components/SearchModal/SearchModal';
 import SideMenu from '@/components/SideMenu/SideMenu';
 import { SearchProvider } from '@/context/SearchContext';
 import { Ionicons } from '@expo/vector-icons';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text } from 'react-native';
 
 export default function RootLayout() {
   const [searchVisible, setSearchVisible] = useState(false);
   const [sideMenuVisible, setsideMenuVisible] = useState(false);
+  const router = useRouter();
 
   return (
     <SearchProvider>
@@ -28,7 +29,9 @@ export default function RootLayout() {
           ),
 
           headerTitle: () => (
-            <View>
+            <Pressable
+              onPress={() => router.navigate('/')}
+            >
               <Text
                 style={{
                   fontSize: 20,
@@ -38,7 +41,7 @@ export default function RootLayout() {
               >
                 SoniStore
               </Text>
-            </View>
+            </Pressable>
           ),
 
           headerRight: () => (

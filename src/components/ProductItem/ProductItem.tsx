@@ -12,7 +12,7 @@ export default function ProductItem({ product }: { product: ProductType }) {
   return (
     <Pressable
       style={styles.productItem}
-      onPress={() => router.push({ pathname: '/productDetailScreen', params: { id: product.id}})}
+      onPress={() => router.push({ pathname: '/product/[id]', params: { id: product.id}})}
     >
         <Image
           source={{ uri: imageError ? placeholderImage : product.images[0] }}
