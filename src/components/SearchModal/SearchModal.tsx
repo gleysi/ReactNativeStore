@@ -31,7 +31,7 @@ export default function SearchModal({ visible, onClose }: SearchModalProps) {
   const router = useRouter();
   const currentPathname = usePathname();
   const [localSearchText, setLocalSearchText] = useState('');
-  const { setSearchText, setSelectedCategoryId } = useSearch();
+  const { setSearchText } = useSearch();
 
   const handleSearch = (value?: string) => {
     const query = value ?? localSearchText;
@@ -39,7 +39,6 @@ export default function SearchModal({ visible, onClose }: SearchModalProps) {
     if (!query.trim()) return;
 
     setSearchText(query.trim());
-    setSelectedCategoryId(null);
     setLocalSearchText('');
     onClose();
      if (currentPathname !== '/') {

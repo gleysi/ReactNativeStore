@@ -1,7 +1,7 @@
 import { useSearch } from '@/context/SearchContext';
 import useCategories from '@/hooks/useCategories';
 import { Ionicons } from '@expo/vector-icons';
-import { usePathname, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import {
   Modal,
   Pressable,
@@ -17,18 +17,19 @@ type SideMenuProps = {
 
 export default function SideMenu({ visible, onClose }: SideMenuProps) {
   const router = useRouter();
-  const currentPathname = usePathname();
   const { categories, loading, error } = useCategories();
-  const { setSelectedCategoryId, setSearchText, setCategoryName } = useSearch();
+  const { setSearchText } = useSearch();
 
   const handleProducts = (categoryId: number, categoryName: string) => {
-    setSelectedCategoryId(categoryId);
-    setCategoryName(categoryName);
     setSearchText('');
     onClose();
-    if (currentPathname !== '/') {
-      router.dismissAll();
-    }
+    router.push({
+      pathname: '/category/[id]/[slug]',
+      params: {
+        id: String(categoryId),
+        slug: categoryName,
+      },
+    });
   }
 
   return (

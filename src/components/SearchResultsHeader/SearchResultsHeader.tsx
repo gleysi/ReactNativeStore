@@ -1,19 +1,20 @@
 import { useSearch } from '@/context/SearchContext';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 import styles from './styles';
 
-export default function SearchResultsHeader() {
-  const { searchText, setSearchText, selectedCategoryId, setSelectedCategoryId, categoryName, setCategoryName } = useSearch();
+export default function SearchResultsHeader({categoryName}: {categoryName?: string | null}) {
+  const { searchText, setSearchText  } = useSearch();
+  const router = useRouter();
 
-  if (!searchText && !selectedCategoryId) {
+  if (!searchText && !categoryName ) {
     return;
   }
 
   function handleCLose() {
     setSearchText('');
-    setSelectedCategoryId(null);
-    setCategoryName(null);
+    router.navigate('/');
   }
 
   return (

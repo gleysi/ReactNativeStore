@@ -1,27 +1,43 @@
 import SearchModal from '@/components/SearchModal/SearchModal';
 import SideMenu from '@/components/SideMenu/SideMenu';
-import { SearchProvider } from '@/context/SearchContext';
+import { SearchProvider, useSearch } from '@/context/SearchContext';
 import { Ionicons } from '@expo/vector-icons';
 import { Stack, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, Text } from 'react-native';
 
 export default function RootLayout() {
-  const [searchVisible, setSearchVisible] = useState(false);
-  const [sideMenuVisible, setsideMenuVisible] = useState(false);
-  const router = useRouter();
-
   return (
     <SearchProvider>
+      <RootLayoutContent />
+    </SearchProvider>
+  );
+}
+
+function RootLayoutContent() {
+  const [searchVisible, setSearchVisible] = useState(false);
+  const [sideMenuVisible, setSideMenuVisible] = useState(false);
+
+  const { setSearchText } = useSearch();
+  const router = useRouter();
+
+  function handleClose() {
+    setSearchText('');
+    router.navigate('/');
+  }
+
+  return (
+    <>
       <Stack
         screenOptions={{
           headerShadowVisible: false,
           headerStyle: {
             backgroundColor: '#fff',
           },
+
           headerLeft: () => (
             <Pressable
-              onPress={() => setsideMenuVisible(true)}
+              onPress={() => setSideMenuVisible(true)}
               style={{ marginLeft: 16 }}
             >
               <Ionicons name="menu" size={28} color="#222" />
@@ -29,9 +45,7 @@ export default function RootLayout() {
           ),
 
           headerTitle: () => (
-            <Pressable
-              onPress={() => router.navigate('/')}
-            >
+            <Pressable onPress={handleClose}>
               <Text
                 style={{
                   fontSize: 20,
@@ -55,16 +69,19 @@ export default function RootLayout() {
         }}
       >
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="category/[id]/[slug]" />
+        <Stack.Screen name="product/[id]" />
       </Stack>
 
       <SearchModal
         visible={searchVisible}
         onClose={() => setSearchVisible(false)}
       />
+
       <SideMenu
         visible={sideMenuVisible}
-        onClose={() => setsideMenuVisible(false)}
+        onClose={() => setSideMenuVisible(false)}
       />
-    </SearchProvider>
+    </>
   );
 }

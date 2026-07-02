@@ -1,3 +1,4 @@
+import { ProductType } from '@/types/products.types';
 import { useEffect, useState } from 'react';
 import { getProduct, getProducts, getProductsByCategoryId } from '../services/productsService';
 
@@ -5,7 +6,7 @@ const globalProductsCache: Record<string | number, any[]> = {};
 
 export const useProducts = (categoryId?: number | null) => {
   const activeCategoryId = categoryId || 'all';
-  const [data, setData] = useState<any[]>(globalProductsCache[activeCategoryId] || []);
+  const [data, setData] = useState<ProductType[]>(globalProductsCache[activeCategoryId] || []);
   const [loading, setLoading] = useState(!globalProductsCache[activeCategoryId]);
   const [error, setError] = useState<string | null>(null);
 
