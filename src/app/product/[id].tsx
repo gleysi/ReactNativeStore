@@ -13,8 +13,8 @@ import {
 import styles from './styles';
 
 export default function ProductDetail() {
-  const { id } = useLocalSearchParams<{ id: any }>();
-  const { productData, productLoad, productError } = useProduct(id);
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const { productData, productLoad, productError } = useProduct(Number(id));
   const [imageError, setImageError] = useState(false);
 
   const placeholderImage = 'https://placehold.co/600x400';
