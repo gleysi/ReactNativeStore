@@ -4,7 +4,7 @@ import { SearchProvider } from '@/context/SearchContext';
 import { Ionicons } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
 import { useState } from 'react';
-import { Pressable } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 export default function RootLayout() {
   const [searchVisible, setSearchVisible] = useState(false);
@@ -14,7 +14,6 @@ export default function RootLayout() {
     <SearchProvider>
       <Stack
         screenOptions={{
-          headerTitle: '',
           headerShadowVisible: false,
           headerStyle: {
             backgroundColor: '#fff',
@@ -27,6 +26,21 @@ export default function RootLayout() {
               <Ionicons name="menu" size={28} color="#222" />
             </Pressable>
           ),
+
+          headerTitle: () => (
+            <View>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: '700',
+                  color: '#222',
+                }}
+              >
+                SoniStore
+              </Text>
+            </View>
+          ),
+
           headerRight: () => (
             <Pressable
               onPress={() => setSearchVisible(true)}
