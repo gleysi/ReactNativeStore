@@ -68,7 +68,6 @@ function RootLayoutContent() {
           ),
         }}
       >
-        <Stack.Screen name="(tabs)" />
         <Stack.Screen name="category/[id]/[slug]" />
         <Stack.Screen name="product/[id]" />
       </Stack>
