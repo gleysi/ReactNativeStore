@@ -68,9 +68,6 @@ function RootLayoutContent() {
           ),
         }}
       >
-        <Stack.Screen name="index" />
-        <Stack.Screen name="category/[id]/[slug]" />
-        <Stack.Screen name="product/[id]" />
       </Stack>
 
       <SearchModal
