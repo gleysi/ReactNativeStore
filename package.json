@@ -2,6 +2,7 @@
   "name": "rn-store",
   "main": "expo-router/entry",
   "version": "1.0.0",
+  "homepage": "https://gleysi.github.io/ReactNativeStore",
   "dependencies": {
     "@expo/ui": "~56.0.17",
     "@expo/vector-icons": "^15.0.2",
@@ -31,9 +32,12 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
+    "gh-pages": "^6.3.0",
     "typescript": "~6.0.3"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
