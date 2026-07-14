@@ -208,4 +208,15 @@ React Native
 
 React Native is the framework, while Expo and Expo Go are tools built on top of React Native to simplify development and improve the developer experience.
 
-![Watch the Video](https://drive.google.com/file/d/1NUBaNsMY3gMEZuPcQ3fO98wI7lKVuSHN/view?usp=sharing)
+<a href="https://drive.google.com/file/d/1NUBaNsMY3gMEZuPcQ3fO98wI7lKVuSHN/view?usp=sharing">App video</a>
+
+<img width="489" height="1031" alt="image" src="https://github.com/user-attachments/assets/c46c7a88-d072-4d57-a699-85c48bb9b798" />
+<img width="488" height="1060" alt="image" src="https://github.com/user-attachments/assets/45a55d64-af86-48e7-9bb8-09cc31ecb1a4" />
+<img width="487" height="1060" alt="image" src="https://github.com/user-attachments/assets/25177f21-5f34-4d55-acde-c428265f4e83" />
+<img width="490" height="1046" alt="image" src="https://github.com/user-attachments/assets/82230b4f-483f-40a7-977b-4fae6cc82bc8" />
+<img width="487" height="1052" alt="image" src="https://github.com/user-attachments/assets/e3293efd-597a-4758-b628-f26cb3def2f5" />
+<img width="488" height="1049" alt="image" src="https://github.com/user-attachments/assets/e9a2d389-9611-4b83-afc5-c27b00d3dac6" />
+
+
+
+
